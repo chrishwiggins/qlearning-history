@@ -26,14 +26,14 @@
 %==============================================================================
 
 \begin{frame}{The Problem of Root Finding Under Noise}
-\textbf{Classical Problem:} Find $\theta^*$ such that $M(\theta^*) = \alpha$
+\textbf{Classical Problem:} Find $\theta^*$ such that $M(\theta^*) = 0$
 
 \vspace{0.5cm}
 \textbf{Challenge:} We cannot observe $M(\theta)$ directly---only noisy samples
 \[
-Y = M(\theta) + \epsilon
+Y = M(\theta) + \varepsilon
 \]
-where $\epsilon$ is random noise with $\mathbb{E}[\epsilon] = 0$.
+where $\varepsilon$ is random noise with $\mathbb{E}[\varepsilon] = 0$.
 
 \vspace{0.5cm}
 \textbf{Context (1951):}
@@ -47,10 +47,10 @@ where $\epsilon$ is random noise with $\mathbb{E}[\epsilon] = 0$.
 \begin{frame}{The Robbins-Monro Algorithm}
 \textbf{The Update Rule:}
 \[
-\theta_{n+1} = \theta_n - a_n \left( Y_n - \alpha \right)
+\theta_{n+1} = \theta_n - a_n Y_n
 \]
 
-where $Y_n$ is a noisy observation at $\theta_n$.
+where $Y_n = M(\theta_n) + \varepsilon_n$ is a noisy observation of $M(\theta_n)$.
 
 \vspace{0.5cm}
 \textbf{Key Conditions on Step Sizes:}
