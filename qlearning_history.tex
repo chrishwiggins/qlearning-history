@@ -139,22 +139,39 @@ Optimal decisions have a recursive structure---the \textit{principle of optimali
 \end{frame}
 
 \begin{frame}{Deriving Bellman from Random Horizons}
-\textbf{Key Insight:} Let horizon $T \sim \text{Geometric}(1-\gamma)$, so $P(T \geq 1) = \gamma$.
+\textbf{Setup:} Let $T \sim \text{Geometric}(1-\gamma)$, so $P(T = k) = (1-\gamma)\gamma^k$.
 
 \vspace{0.3cm}
-Define the $Q$-function as expected cumulative reward over random horizon:
+Define the \textbf{normalized} value (a true expectation):
 \[
-Q(s,a) = \mathbb{E}\left[ \sum_{k=0}^{T} r_k \;\Big|\; s_0 = s, a_0 = a \right]
+\tilde{Q}(s,a) = \mathbb{E}\left[ \sum_{k=0}^{T} r_k \;\Big|\; s_0 = s, a_0 = a \right] = (1-\gamma) \sum_{k=0}^{\infty} \gamma^k \, \mathbb{E}[r_k]
 \]
 
-\textbf{Unroll one step:}
-\begin{align*}
-Q(s,a) &= \mathbb{E}[r_0] + P(T \geq 1) \cdot \mathbb{E}\left[ \sum_{k=1}^{T} r_k \;\Big|\; T \geq 1 \right] \\[4pt]
-&= R(s,a) + \gamma \cdot \mathbb{E}_{s' \sim P(\cdot|s,a)}\left[ \max_{a'} Q(s', a') \right]
-\end{align*}
+The \textbf{standard} $Q$-function drops the normalizing constant $(1-\gamma)$:
+\[
+Q(s,a) = \sum_{k=0}^{\infty} \gamma^k \, \mathbb{E}[r_k] = \frac{1}{1-\gamma} \tilde{Q}(s,a)
+\]
 
 \vspace{0.2cm}
-The memoryless property of the geometric distribution gives recursion!
+\textbf{Why drop it?} The $\arg\max$ is unchanged, and $Q$ has cleaner recursion.
+\end{frame}
+
+\begin{frame}{Unrolling One Step}
+\textbf{For} $\tilde{Q}$: Using $P(T \geq 1) = \gamma$ and memorylessness:
+\[
+\tilde{Q}(s,a) = (1-\gamma) R(s,a) + \gamma \cdot \mathbb{E}_{s'}\left[ \max_{a'} \tilde{Q}(s', a') \right]
+\]
+
+\textbf{For} $Q = \tilde{Q}/(1-\gamma)$: Divide through:
+\[
+Q(s,a) = R(s,a) + \gamma \cdot \mathbb{E}_{s'}\left[ \max_{a'} Q(s', a') \right]
+\]
+
+\vspace{0.3cm}
+The $(1-\gamma)$ cancels, giving the standard Bellman equation.
+
+\vspace{0.3cm}
+\textbf{Key insight:} The memoryless property of the geometric distribution yields the recursive structure.
 \end{frame}
 
 \begin{frame}{The Bellman Equation}
