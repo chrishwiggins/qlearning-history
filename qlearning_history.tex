@@ -115,6 +115,25 @@ Optimal decisions have a recursive structure---the \textit{principle of optimali
 \end{quote}
 \end{frame}
 
+\begin{frame}{Deriving Bellman from Random Horizons}
+\textbf{Key Insight:} Let horizon $T \sim \text{Geometric}(1-\gamma)$, so $P(T \geq 1) = \gamma$.
+
+\vspace{0.3cm}
+Define the $Q$-function as expected cumulative reward over random horizon:
+\[
+Q(s,a) = \mathbb{E}\left[ \sum_{k=0}^{T} r_k \;\Big|\; s_0 = s, a_0 = a \right]
+\]
+
+\textbf{Unroll one step:}
+\begin{align*}
+Q(s,a) &= \mathbb{E}[r_0] + P(T \geq 1) \cdot \mathbb{E}\left[ \sum_{k=1}^{T} r_k \;\Big|\; T \geq 1 \right] \\[4pt]
+&= R(s,a) + \gamma \cdot \mathbb{E}_{s' \sim P(\cdot|s,a)}\left[ \max_{a'} Q(s', a') \right]
+\end{align*}
+
+\vspace{0.2cm}
+The memoryless property of the geometric distribution gives recursion!
+\end{frame}
+
 \begin{frame}{The Bellman Equation}
 \textbf{Value Function:} $V^*(s)$ = optimal expected cumulative reward from state $s$
 
