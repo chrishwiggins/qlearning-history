@@ -5,6 +5,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{tikz}
 \usepackage{booktabs}
+\usepackage{graphicx}
 
 \title{Q-Learning: A Historical Synthesis}
 \subtitle{Robbins-Monro + Bellman + Epsilon-Greedy}
@@ -140,30 +141,9 @@ $\theta_n \xrightarrow{\text{a.s.}} \theta^*$.
 \end{frame}
 
 \begin{frame}{Example: Online Mean Estimation (Wikipedia)}
-\textbf{Problem:} Estimate $\theta^* = \mathbb{E}[X]$ from samples $X_1, X_2, \ldots$
-
-\vspace{0.2cm}
-Let $N(\theta) := \theta - X$. Then $\mathbb{E}[N(\theta)] = \theta - \theta^* = 0$ iff $\theta = \theta^*$.
-
-\vspace{0.2cm}
-\textbf{RM update:}
-\[
-\theta_{n+1} = \theta_n - a_n(\theta_n - X_n)
-\]
-
-\textbf{Rewrite as weighted average:}
-\[
-\theta_{n+1} = (1 - a_n)\theta_n + a_n X_n
-\]
-
-\vspace{0.2cm}
-\textbf{Equivalently:} SGD on loss $L(\theta) = \frac{1}{2}\|X - \theta\|^2$ since $\nabla_\theta L = \theta - X$.
-
-\vspace{0.2cm}
-In general, if $\exists L$ such that $\nabla L(\theta) = N(\theta) - \alpha$, then RM $\equiv$ SGD on $L(\theta)$.
-
-\vspace{0.2cm}
-\textbf{Key point:} RM does not require $L$ to exist---only $\mathbb{E}[N(\theta)]=0$ at the solution.
+\begin{center}
+\includegraphics[width=0.95\textwidth]{rm_wikipedia.png}
+\end{center}
 \end{frame}
 
 \begin{frame}{Why Robbins-Monro Matters for RL}
