@@ -22,6 +22,81 @@
 \end{frame}
 
 %==============================================================================
+\section{Historical Timeline}
+%==============================================================================
+
+\begin{frame}{Timeline: The Road to Q-Learning}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+\draw[thick,->] (0,0) -- (14,0);
+
+% Tick marks and labels
+\foreach \x/\year in {1/1933, 2.5/1951, 4/1952, 5.5/1957, 8/1988, 9.5/1989, 11/1992, 12.5/2015} {
+    \draw (\x,0.1) -- (\x,-0.1);
+}
+
+\node[below,font=\tiny] at (1,-0.2) {1933};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (1,0.2) {Thompson\\Sampling};
+
+\node[below,font=\tiny] at (2.5,-0.2) {1951};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (2.5,0.2) {Robbins-\\Monro};
+
+\node[below,font=\tiny] at (4,-0.2) {1952};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (4,0.2) {Robbins\\Bandits};
+
+\node[below,font=\tiny] at (5.5,-0.2) {1957};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (5.5,0.2) {Bellman\\DP};
+
+\node[below,font=\tiny] at (8,-0.2) {1988};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (8,0.2) {Sutton\\TD($\lambda$)};
+
+\node[below,font=\tiny] at (9.5,-0.2) {1989};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (9.5,0.2) {\textbf{Watkins}\\Q-learning};
+
+\node[below,font=\tiny] at (11,-0.2) {1992};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (11,0.2) {Convergence\\Proof};
+
+\node[below,font=\tiny] at (12.5,-0.2) {2015};
+\node[above,font=\tiny,text width=1.5cm,align=center] at (12.5,0.2) {DQN\\(Mnih)};
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+\textbf{Key Contributors:}
+\begin{itemize}
+    \item Robbins \& Monro: Stochastic approximation framework
+    \item Bellman: Optimality principle and recursive structure
+    \item Sutton: Temporal difference learning bridge
+    \item Watkins: The synthesis into Q-learning
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary: Q-Learning as a Synthesis}
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+\node[box] (rm) at (0,3) {Robbins-Monro\\(1951)\\Stochastic Approx.};
+\node[box] (bell) at (5,3) {Bellman\\(1957)\\Dynamic Programming};
+\node[box] (eg) at (10,3) {Epsilon-Greedy\\(1950s--80s)\\Exploration};
+
+\node[box, fill=blue!20, minimum width=4cm] (ql) at (5,0) {\textbf{Q-Learning}\\Watkins (1989)};
+
+\draw[arrow] (rm) -- (ql);
+\draw[arrow] (bell) -- (ql);
+\draw[arrow] (eg) -- (ql);
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+\textbf{Q-Learning = Robbins-Monro + Bellman + Epsilon-Greedy}
+
+\vspace{0.3cm}
+A synthesis of ideas spanning 40 years of mathematics, operations research, and computer science.
+\end{frame}
+
+%==============================================================================
 \section{Part I: Robbins-Monro Stochastic Approximation (1951)}
 %==============================================================================
 
@@ -64,13 +139,13 @@ where $\mathbb{E}[M(\theta, X)] = 0$ has unique solution $\theta^*$.
 $\theta_n \xrightarrow{\text{a.s.}} \theta^*$.
 \end{frame}
 
-\begin{frame}{Example: Online Mean Estimation}
+\begin{frame}{Example: Online Mean Estimation (Wikipedia)}
 \textbf{Problem:} Estimate $\theta^* = \mathbb{E}[X]$ from samples $X_1, X_2, \ldots$
 
-\vspace{0.3cm}
-Let $M(\theta, X) := \theta - X$. Then $\mathbb{E}[M(\theta, X)] = \theta - \theta^* = 0$ iff $\theta = \theta^*$.
+\vspace{0.2cm}
+Let $N(\theta) := \theta - X$. Then $\mathbb{E}[N(\theta)] = \theta - \theta^* = 0$ iff $\theta = \theta^*$.
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{RM update:}
 \[
 \theta_{n+1} = \theta_n - a_n(\theta_n - X_n)
@@ -81,14 +156,14 @@ Let $M(\theta, X) := \theta - X$. Then $\mathbb{E}[M(\theta, X)] = \theta - \the
 \theta_{n+1} = (1 - a_n)\theta_n + a_n X_n
 \]
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 \textbf{Equivalently:} SGD on loss $L(\theta) = \frac{1}{2}\|X - \theta\|^2$ since $\nabla_\theta L = \theta - X$.
 
-\vspace{0.3cm}
-\textbf{Key point:} RM does not require $L$ to exist---it only needs $\mathbb{E}[M(\theta,X)]=0$ at the solution.
+\vspace{0.2cm}
+In general, if $\exists L$ such that $\nabla L(\theta) = N(\theta) - \alpha$, then RM $\equiv$ SGD on $L(\theta)$.
 
 \vspace{0.2cm}
-{\footnotesize (Example adapted from Wikipedia)}
+\textbf{Key point:} RM does not require $L$ to exist---only $\mathbb{E}[N(\theta)]=0$ at the solution.
 \end{frame}
 
 \begin{frame}{Why Robbins-Monro Matters for RL}
@@ -392,54 +467,8 @@ Q-learning converges to $Q^*$ with probability 1, provided:
 \end{frame}
 
 %==============================================================================
-\section{Part V: Historical Timeline and Legacy}
+\section{Legacy and Modern Extensions}
 %==============================================================================
-
-\begin{frame}{Timeline: The Road to Q-Learning}
-\begin{center}
-\begin{tikzpicture}[scale=0.9]
-\draw[thick,->] (0,0) -- (14,0);
-
-% Tick marks and labels
-\foreach \x/\year in {1/1933, 2.5/1951, 4/1952, 5.5/1957, 8/1988, 9.5/1989, 11/1992, 12.5/2015} {
-    \draw (\x,0.1) -- (\x,-0.1);
-}
-
-\node[below,font=\tiny] at (1,-0.2) {1933};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (1,0.2) {Thompson\\Sampling};
-
-\node[below,font=\tiny] at (2.5,-0.2) {1951};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (2.5,0.2) {Robbins-\\Monro};
-
-\node[below,font=\tiny] at (4,-0.2) {1952};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (4,0.2) {Robbins\\Bandits};
-
-\node[below,font=\tiny] at (5.5,-0.2) {1957};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (5.5,0.2) {Bellman\\DP};
-
-\node[below,font=\tiny] at (8,-0.2) {1988};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (8,0.2) {Sutton\\TD($\lambda$)};
-
-\node[below,font=\tiny] at (9.5,-0.2) {1989};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (9.5,0.2) {\textbf{Watkins}\\Q-learning};
-
-\node[below,font=\tiny] at (11,-0.2) {1992};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (11,0.2) {Convergence\\Proof};
-
-\node[below,font=\tiny] at (12.5,-0.2) {2015};
-\node[above,font=\tiny,text width=1.5cm,align=center] at (12.5,0.2) {DQN\\(Mnih)};
-\end{tikzpicture}
-\end{center}
-
-\vspace{0.5cm}
-\textbf{Key Contributors:}
-\begin{itemize}
-    \item Robbins \& Monro: Stochastic approximation framework
-    \item Bellman: Optimality principle and recursive structure
-    \item Sutton: Temporal difference learning bridge
-    \item Watkins: The synthesis into Q-learning
-\end{itemize}
-\end{frame}
 
 \begin{frame}{The Legacy: From Q-Learning to Deep RL}
 \textbf{The Original Formula Lives On:}
@@ -463,31 +492,6 @@ Q(s,a) \leftarrow Q(s,a) + \alpha \left[ r + \gamma \max_{a'} Q(s',a') - Q(s,a) 
 Bellman structure $+$ stochastic approximation $+$ exploration
 \end{frame}
 
-\begin{frame}{Summary: Q-Learning as a Synthesis}
-\begin{center}
-\begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center},
-    arrow/.style={->, thick}
-]
-\node[box] (rm) at (0,3) {Robbins-Monro\\(1951)\\Stochastic Approx.};
-\node[box] (bell) at (5,3) {Bellman\\(1957)\\Dynamic Programming};
-\node[box] (eg) at (10,3) {Epsilon-Greedy\\(1950s--80s)\\Exploration};
-
-\node[box, fill=blue!20, minimum width=4cm] (ql) at (5,0) {\textbf{Q-Learning}\\Watkins (1989)};
-
-\draw[arrow] (rm) -- (ql);
-\draw[arrow] (bell) -- (ql);
-\draw[arrow] (eg) -- (ql);
-\end{tikzpicture}
-\end{center}
-
-\vspace{0.5cm}
-\textbf{Q-Learning = Robbins-Monro + Bellman + Epsilon-Greedy}
-
-\vspace{0.3cm}
-A beautiful synthesis of ideas spanning 40 years of mathematics, operations research, and computer science.
-\end{frame}
-
 \begin{frame}{References}
 \footnotesize
 \begin{itemize}
@@ -497,6 +501,7 @@ A beautiful synthesis of ideas spanning 40 years of mathematics, operations rese
     \item Watkins, C. \& Dayan, P. (1992). Q-learning. \textit{Machine Learning}.
     \item Sutton, R. \& Barto, A. (2018). \textit{Reinforcement Learning: An Introduction}. 2nd ed.
     \item Mnih, V. et al. (2015). Human-level control through deep reinforcement learning. \textit{Nature}.
+    \item Wikipedia. Stochastic approximation. (Online mean estimation example.)
 \end{itemize}
 \end{frame}
 
