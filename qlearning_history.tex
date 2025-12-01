@@ -47,25 +47,48 @@ where $\varepsilon$ is random noise with $\mathbb{E}[\varepsilon] = 0$.
 \begin{frame}{The Robbins-Monro Algorithm}
 \textbf{The Update Rule:}
 \[
-\theta_{n+1} = \theta_n - a_n Y_n
+\theta_{n+1} = \theta_n - a_n M(\theta_n, X_n)
 \]
+where $\mathbb{E}[M(\theta, X)] = 0$ has unique solution $\theta^*$.
 
-where $Y_n = M(\theta_n) + \varepsilon_n$ is a noisy observation of $M(\theta_n)$.
-
-\vspace{0.5cm}
+\vspace{0.4cm}
 \textbf{Key Conditions on Step Sizes:}
 \[
 \sum_{n=1}^{\infty} a_n = \infty \quad \text{and} \quad \sum_{n=1}^{\infty} a_n^2 < \infty
 \]
 
-\vspace{0.3cm}
 \textbf{Example:} $a_n = 1/n$ satisfies both conditions.
 
-\vspace{0.5cm}
+\vspace{0.4cm}
 \textbf{Theorem (Robbins-Monro 1951):} Under mild regularity conditions,
+$\theta_n \xrightarrow{\text{a.s.}} \theta^*$.
+\end{frame}
+
+\begin{frame}{Example: Online Mean Estimation}
+\textbf{Problem:} Estimate $\theta^* = \mathbb{E}[X]$ from samples $X_1, X_2, \ldots$
+
+\vspace{0.3cm}
+Let $M(\theta, X) := \theta - X$. Then $\mathbb{E}[M(\theta, X)] = \theta - \theta^* = 0$ iff $\theta = \theta^*$.
+
+\vspace{0.3cm}
+\textbf{RM update:}
 \[
-\theta_n \xrightarrow{\text{a.s.}} \theta^* \quad \text{as } n \to \infty
+\theta_{n+1} = \theta_n - a_n(\theta_n - X_n)
 \]
+
+\textbf{Rewrite as weighted average:}
+\[
+\theta_{n+1} = (1 - a_n)\theta_n + a_n X_n
+\]
+
+\vspace{0.3cm}
+\textbf{Equivalently:} SGD on loss $L(\theta) = \frac{1}{2}\|X - \theta\|^2$ since $\nabla_\theta L = \theta - X$.
+
+\vspace{0.3cm}
+\textbf{Key point:} RM does not require $L$ to exist---it only needs $\mathbb{E}[M(\theta,X)]=0$ at the solution.
+
+\vspace{0.2cm}
+{\footnotesize (Example adapted from Wikipedia)}
 \end{frame}
 
 \begin{frame}{Why Robbins-Monro Matters for RL}

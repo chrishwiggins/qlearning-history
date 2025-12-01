@@ -1,5 +1,5 @@
 \beamer@sectionintoc {1}{Part I: Robbins-Monro Stochastic Approximation (1951)}{3}{0}{1}
-\beamer@sectionintoc {2}{Part II: Bellman's Dynamic Programming (1957)}{6}{0}{2}
-\beamer@sectionintoc {3}{Part III: Exploration vs.\ Exploitation}{10}{0}{3}
-\beamer@sectionintoc {4}{Part IV: The Synthesis---Q-Learning (1989)}{13}{0}{4}
-\beamer@sectionintoc {5}{Part V: Historical Timeline and Legacy}{17}{0}{5}
+\beamer@sectionintoc {2}{Part II: Bellman's Dynamic Programming (1957)}{7}{0}{2}
+\beamer@sectionintoc {3}{Part III: Exploration vs.\ Exploitation}{11}{0}{3}
+\beamer@sectionintoc {4}{Part IV: The Synthesis---Q-Learning (1989)}{14}{0}{4}
+\beamer@sectionintoc {5}{Part V: Historical Timeline and Legacy}{18}{0}{5}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.31)  1 DEC 2025 12:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.31)  1 DEC 2025 12:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1029,6 +1029,8 @@ thkerncmss.
 
 ] [20
 
+] [21
+
 ]
 \tf@nav=\write6
 \openout6 = `qlearning_history.nav'.
@@ -1044,10 +1046,10 @@ Package rerunfilecheck Info: File `qlearning_history.out' has not changed.
 (rerunfilecheck)             Checksum: 2C72EE56D589523A73041CE144A595EC;1375.
  ) 
 Here is how much of TeX's memory you used:
- 25287 strings out of 476025
- 511662 string characters out of 5790017
- 1871388 words of memory out of 5000000
- 45183 multiletter control sequences out of 15000+600000
+ 25291 strings out of 476025
+ 511697 string characters out of 5790017
+ 1870388 words of memory out of 5000000
+ 45185 multiletter control sequences out of 15000+600000
  526085 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,409b,792s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1071,10 +1073,10 @@ exlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/tex
 live/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
 ve/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive
 /2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on qlearning_history.pdf (20 pages, 259458 bytes).
+Output written on qlearning_history.pdf (21 pages, 262762 bytes).
 PDF statistics:
- 709 PDF objects out of 1000 (max. 8388607)
- 622 compressed objects within 7 object streams
- 46 named destinations out of 1000 (max. 500000)
+ 735 PDF objects out of 1000 (max. 8388607)
+ 647 compressed objects within 7 object streams
+ 48 named destinations out of 1000 (max. 500000)
  137 words of extra memory for PDF output out of 10000 (max. 10000000)
 
